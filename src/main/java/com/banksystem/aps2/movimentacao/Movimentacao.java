@@ -3,7 +3,7 @@ package com.banksystem.aps2.movimentacao;
 import java.time.LocalDate;
 
 public class Movimentacao {
-    enum TipoMovimentacao {SAQUE, DEPOSITO}
+    public enum TipoMovimentacao {SAQUE, DEPOSITO}
     private Float valor;
     private LocalDate data;
     private TipoMovimentacao tipo;
@@ -16,6 +16,6 @@ public class Movimentacao {
 
     // Métodos get
     public Float getValor() {return valor;}
-    public LocalDate getdata() {return data;}
+    public LocalDate getData() {return data;}
     public TipoMovimentacao getTipo() {return tipo;}
 }
