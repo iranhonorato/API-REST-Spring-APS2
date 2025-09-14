@@ -1,5 +1,6 @@
 package com.banksystem.aps2.cartao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -31,8 +32,13 @@ public class CartaoController {
     }
 
     @PostMapping
-    public Cartao criarCartao(@RequestBody Cartao cartao) {
-        return cartaoService.salvar(cartao);
+    public ResponseEntity<?> salvar(@RequestBody Cartao cartao) {
+        try {
+            Cartao novoCartao = cartaoService.salvar(cartao);
+            return ResponseEntity.ok(novoCartao);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 
