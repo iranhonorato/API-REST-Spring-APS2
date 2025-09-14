@@ -7,6 +7,8 @@ public class Cliente {
     private LocalDate dataNascimento;
     private Float salario;
 
+    public Cliente() {}
+
     public Cliente(String nome, String cpf, LocalDate dataNascimento, Float salario) {
         this.nome = nome;
         this.cpf = cpf;

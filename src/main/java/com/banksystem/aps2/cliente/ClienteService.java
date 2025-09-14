@@ -14,17 +14,14 @@ import java.util.UUID;
 
 @Service
 public class ClienteService {
-    private final Map<UUID, Cliente> clientes = new HashMap<>();
+    private final Map<String, Cliente> clientes = new HashMap<>();
 
 
     public Collection<Cliente> listarClientes() {return clientes.values();}
 
 
     public Cliente buscarPorCpf(String cpf) {
-        return clientes.values().stream()
-                .filter(c -> c.getCpf().equals(cpf))
-                .findFirst()
-                .orElse(null);
+        return clientes.get(cpf);
     }
 
     public Cliente salvarCliente(Cliente cliente) throws IllegalAccessException {
@@ -34,25 +31,19 @@ public class ClienteService {
 
         if (clientes.containsKey(cliente.getCpf())) {
             throw new IllegalAccessException("Já existe um cliente com esse CPF");
+
         }
 
-        UUID id = UUID.randomUUID();
-        clientes.put(id, cliente);
+        clientes.put(cliente.getCpf(), cliente);
         return cliente;
     }
 
-    public Cliente editarCliente(String nome, String cpf, LocalDate data, Float salario) {
-        Cliente cliente = clientes.values().stream()
-                .filter(c -> c.getCpf().equals(cpf))
-                .findFirst()
-                .orElse(null);
-
-        cliente.setNome(nome);
-        cliente.setCpf(cpf);
-        cliente.setDataNascimento(data);
-        cliente.setSalario(salario);
-
-        return cliente;
+    public Cliente editarCliente(String cpf, Cliente novosDados) {
+        if (!clientes.containsKey(cpf)) {
+            throw new IllegalArgumentException("Cliente não encontrado com CPF: " + cpf);
+        }
+        clientes.put(cpf, novosDados);
+        return novosDados;
     }
 
 }
