@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 //Model = dados.
 public class Cartao {
-    enum CartaoStatus {ATIVO, CANCELADO}
+    public enum CartaoStatus {ATIVO, CANCELADO}
     private String numeroCartao;
     private String tipo;
     private LocalDate validade;
@@ -21,7 +21,6 @@ public class Cartao {
 
 
     public Cartao() {}
-
 
 
     public Cartao(String numeroCartao, String tipo, LocalDate validade, CartaoStatus status) {
@@ -52,8 +51,7 @@ public class Cartao {
         return false;
     };
 
-
-    public Boolean cacelaCartao() {
+    public Boolean cancelaCartao() {
         if (this.status == CartaoStatus.ATIVO) {
             this.status = CartaoStatus.CANCELADO;
         }

@@ -20,7 +20,7 @@ public class CartaoService {
     // Banco de dados em memória
     private final Map<UUID, Cartao> cartoes = new HashMap<>();
 
-    public Collection<Cartao> listarTodos() {
+    public Collection<Cartao> listarCartoes() {
         return cartoes.values();
     }
 
@@ -32,7 +32,7 @@ public class CartaoService {
     }
 
 
-    public Cartao salvar(Cartao cartao) {
+    public Cartao salvarCartao(Cartao cartao) {
         if (cartao.getNumeroCartao() == null || cartao.getNumeroCartao().isEmpty()) {
             throw new IllegalArgumentException("O número do cartão não pode ser nulo ou vazio.");
         }
@@ -48,7 +48,16 @@ public class CartaoService {
 
 
     public void deletar(String numeroCartao) {
-        cartoes.remove(numeroCartao);
+
+        UUID idParaRemover = cartoes.entrySet().stream()
+                .filter(entry -> entry.getValue().getNumeroCartao().equals(numeroCartao))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+
+        if (idParaRemover != null) {
+            cartoes.remove(idParaRemover);
+        }
     }
 
 }

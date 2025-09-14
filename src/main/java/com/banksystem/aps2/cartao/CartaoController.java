@@ -23,7 +23,7 @@ public class CartaoController {
 
     @GetMapping
     public Collection<Cartao> listarCartoes() {
-        return cartaoService.listarTodos();
+        return cartaoService.listarCartoes();
     }
 
     @GetMapping("/{numeroCartao}")
@@ -34,7 +34,7 @@ public class CartaoController {
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody Cartao cartao) {
         try {
-            Cartao novoCartao = cartaoService.salvar(cartao);
+            Cartao novoCartao = cartaoService.salvarCartao(cartao);
             return ResponseEntity.ok(novoCartao);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
