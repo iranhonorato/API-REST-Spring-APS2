@@ -3,12 +3,26 @@ import java.time.LocalDate;
 
 
 
+//Cliente → envia requisição HTTP → Controller
+//Controller → chama métodos → Service
+//Service → usa/gera dados → Model (Autor)
+//Service → retorna resultado → Controller
+//Controller → devolve JSON → Cliente
+
+
+
+//Model = dados.
 public class Cartao {
     enum CartaoStatus {ATIVO, CANCELADO}
     private String numeroCartao;
     private String tipo;
     private LocalDate validade;
     private CartaoStatus status;
+
+
+    public Cartao() {}
+
+
 
     public Cartao(String numeroCartao, String tipo, LocalDate validade, CartaoStatus status) {
         this.numeroCartao = numeroCartao;
