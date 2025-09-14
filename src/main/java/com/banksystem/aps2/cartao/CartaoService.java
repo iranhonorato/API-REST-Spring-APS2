@@ -3,6 +3,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 //Cliente → envia requisição HTTP → Controller
@@ -17,16 +18,17 @@ import java.util.Map;
 @Service
 public class CartaoService {
     // Banco de dados em memória
-    private final Map<String, Cartao> cartoes = new HashMap<>();
-
+    private final Map<UUID, Cartao> cartoes = new HashMap<>();
 
     public Collection<Cartao> listarTodos() {
         return cartoes.values();
     }
 
-
     public Cartao buscarPorNumero(String numeroCartao) {
-        return cartoes.get(numeroCartao);
+        return cartoes.values().stream()
+                .filter(c -> c.getNumeroCartao().equals(numeroCartao))
+                .findFirst()
+                .orElse(null);
     }
 
 
@@ -38,7 +40,9 @@ public class CartaoService {
         if (cartoes.containsKey(cartao.getNumeroCartao())) {
             throw new IllegalArgumentException("Já existe um cartão com esse número.");
         }
-        cartoes.put(cartao.getNumeroCartao(), cartao);
+
+        UUID id = UUID.randomUUID();
+        cartoes.put(id, cartao);
         return cartao;
     }
 
