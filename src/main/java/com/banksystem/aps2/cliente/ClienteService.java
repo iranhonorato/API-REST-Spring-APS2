@@ -24,13 +24,13 @@ public class ClienteService {
         return clientes.get(cpf);
     }
 
-    public Cliente salvarCliente(Cliente cliente) throws IllegalAccessException {
+    public Cliente salvarCliente(Cliente cliente) {
         if (cliente.getCpf() == null || cliente.getCpf().isEmpty()) {
-            throw new IllegalAccessException("O CPF do cliente não pode ser nulo ou vazio");
+            throw new IllegalArgumentException("O CPF do cliente não pode ser nulo ou vazio");
         }
 
         if (clientes.containsKey(cliente.getCpf())) {
-            throw new IllegalAccessException("Já existe um cliente com esse CPF");
+            throw new IllegalArgumentException("Já existe um cliente com esse CPF");
 
         }
 
