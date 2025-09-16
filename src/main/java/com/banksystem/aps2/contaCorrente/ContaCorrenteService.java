@@ -32,7 +32,7 @@ public class ContaCorrenteService {
 
     public ArrayList<Movimentacao> listarMovimentacoes(String conta) {
         ContaCorrente contaCorrente = contas.get(conta);
-        if (conta == null) {
+        if (contaCorrente == null) {
             throw new IllegalArgumentException("Conta não encontrada");
         }
         return contaCorrente.listaMovimentacoes();

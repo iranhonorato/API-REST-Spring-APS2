@@ -15,12 +15,14 @@ public class ContaCorrente {
     private String agencia;
     private String conta;
     private Float saldo;
-    private final Float limite;
-    private final Cliente cliente;
+    private Float limite;
+    private Cliente cliente;
     private final ArrayList<Movimentacao> movimentacoes = new ArrayList<>(); // N Movimentações para cada Conta Corrente
     private final ArrayList<Cartao> cartoes = new ArrayList<>(); // N Cartões para cada Conta Corrente
 
 
+
+    public ContaCorrente() {}
 
 
     public ContaCorrente(String agencia, String conta, Float saldo, Float limite, Cliente cliente) {
@@ -51,7 +53,6 @@ public class ContaCorrente {
 
         // Verifica se o valor é válido
         if (valor == null || valor < 0) {
-            System.out.println("Valor inválido");
 
             // Verifica se o novo saldo está dentro do limite permitido da conta
         } else if (novoSaldo >= -this.limite) {
@@ -61,7 +62,6 @@ public class ContaCorrente {
 
             // Atualiza saldo
             this.saldo = novoSaldo;
-            System.out.println(movimentacao.getTipo() + " de " + movimentacao.getValor() + " na data " + movimentacao.getData());
         }
     }
 
@@ -69,7 +69,6 @@ public class ContaCorrente {
 
         // Verifica se o valor é válido
         if (valor == null || valor < 0) {
-            System.out.println("Valor inválido");
             return;
 
         } else {
@@ -79,7 +78,6 @@ public class ContaCorrente {
 
             // Atualiza saldo
             this.saldo += valor;
-            System.out.println(movimentacao.getTipo() + " de " + movimentacao.getValor() + " na data " + movimentacao.getData());
         }
     }
 
