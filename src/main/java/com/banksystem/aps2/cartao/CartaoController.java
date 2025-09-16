@@ -22,17 +22,17 @@ public class CartaoController {
     private CartaoService cartaoService;
 
     @GetMapping
-    public Collection<Cartao> listarCartoes() {
+    public Collection<Cartao> listarCartoesController() {
         return cartaoService.listarCartoes();
     }
 
     @GetMapping("/{numeroCartao}")
-    public Cartao buscarCartao(@PathVariable String numeroCartao) {
+    public Cartao buscarCartaoController(@PathVariable String numeroCartao) {
         return cartaoService.buscarPorNumero(numeroCartao);
     }
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody Cartao cartao) {
+    public ResponseEntity<?> salvarCartaoController(@RequestBody Cartao cartao) {
         try {
             Cartao novoCartao = cartaoService.salvarCartao(cartao);
             return ResponseEntity.ok(novoCartao);
