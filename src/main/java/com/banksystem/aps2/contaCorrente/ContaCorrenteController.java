@@ -38,7 +38,7 @@ public class ContaCorrenteController {
     }
 
 
-    @PostMapping("/{conta}")
+    @PostMapping("/{conta}/saque")
     public ResponseEntity<?> saqueController(@PathVariable String conta, @RequestBody Float valor){
         try {
             contaCorrenteService.sacar(conta, valor);
@@ -49,7 +49,7 @@ public class ContaCorrenteController {
     }
 
 
-    @PostMapping("/{conta}")
+    @PostMapping("/{conta}/deposito")
     public ResponseEntity<?> depositarController(@PathVariable String conta, @RequestBody Float valor){
         try {
             contaCorrenteService.depositar(conta, valor);
