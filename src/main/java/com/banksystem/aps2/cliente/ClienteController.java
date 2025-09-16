@@ -13,12 +13,12 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public Collection<Cliente> listarClientes() {
+    public Collection<Cliente> listarClientesController() {
         return clienteService.listarClientes();
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<?> buscarClientePorCpf(@PathVariable String cpf) {
+    public ResponseEntity<?> buscarPorCpfController(@PathVariable String cpf) {
         Cliente cliente = clienteService.buscarPorCpf(cpf);
         if (cliente == null) {
             return ResponseEntity.notFound().build();
@@ -27,7 +27,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> salvarCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<?> salvarClienteController(@RequestBody Cliente cliente) {
         try {
             Cliente novoCliente = clienteService.salvarCliente(cliente);
             return ResponseEntity.ok(novoCliente);
@@ -37,7 +37,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<?> atualizarCliente(@PathVariable String cpf, @RequestBody Cliente cliente) {
+    public ResponseEntity<?> editarClienteController(@PathVariable String cpf, @RequestBody Cliente cliente) {
         try {
             Cliente clienteEditado = clienteService.editarCliente(cpf, cliente);
             return ResponseEntity.ok(clienteEditado);
