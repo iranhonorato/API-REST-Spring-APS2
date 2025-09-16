@@ -1,4 +1,5 @@
 package com.banksystem.aps2.cartao;
+import com.banksystem.aps2.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ public class CartaoController {
     @Autowired
     private CartaoService cartaoService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping
     public Collection<Cartao> listarCartoesController() {
         return cartaoService.listarCartoes();
@@ -32,8 +36,11 @@ public class CartaoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> salvarCartaoController(@RequestBody Cartao cartao) {
+    public ResponseEntity<?> salvarCartaoController(
+            @RequestBody Cartao cartao,
+            @RequestHeader("Authorization") String token) {
         try {
+            usuarioService.validarToken(token);
             Cartao novoCartao = cartaoService.salvarCartao(cartao);
             return ResponseEntity.ok(novoCartao);
         } catch (IllegalArgumentException e) {
@@ -43,7 +50,10 @@ public class CartaoController {
 
 
     @DeleteMapping("/{numeroCartao}")
-    public ResponseEntity<?> deletarCartaoController(@PathVariable String numeroCartao) {
+    public ResponseEntity<?> deletarCartaoController(
+            @PathVariable String numeroCartao,
+            @RequestHeader("Authorization") String token) {
+        usuarioService.validarToken(token);
         cartaoService.deletar(numeroCartao);
         return ResponseEntity.noContent().build();
     }
