@@ -43,8 +43,9 @@ public class CartaoController {
 
 
     @DeleteMapping("/{numeroCartao}")
-    public void deletarCartao(@PathVariable String numeroCartao) {
+    public ResponseEntity<?> deletarCartaoController(@PathVariable String numeroCartao) {
         cartaoService.deletar(numeroCartao);
+        return ResponseEntity.noContent().build();
     }
 
 

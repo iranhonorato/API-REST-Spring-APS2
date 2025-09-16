@@ -44,18 +44,16 @@ public class Cartao {
     public void setStatus(CartaoStatus status) {this.status = status;}
 
 
-    public Boolean isExpired(LocalDate dataAtual) {
-        if (dataAtual.isAfter(this.validade)) {
-            return true;
-        }
-        return false;
+    public Boolean isExpired() {
+            return LocalDate.now().isAfter(this.validade);
     };
 
     public Boolean cancelaCartao() {
         if (this.status == CartaoStatus.ATIVO) {
             this.status = CartaoStatus.CANCELADO;
+            return true;
         }
-        return true;
+        return false;
     };
 
 }
