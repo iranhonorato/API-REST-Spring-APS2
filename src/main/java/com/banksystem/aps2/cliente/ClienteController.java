@@ -1,5 +1,6 @@
 package com.banksystem.aps2.cliente;
 
+import com.banksystem.aps2.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping
     public Collection<Cliente> listarClientesController() {
@@ -28,8 +32,12 @@ public class ClienteController {
 
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<?> editarClienteController(@PathVariable String cpf, @RequestBody Cliente cliente) {
+    public ResponseEntity<?> editarClienteController(
+            @PathVariable String cpf,
+            @RequestBody Cliente cliente,
+            @RequestHeader("Authorization") String token) {
         try {
+            usuarioService.validarToken(token);
             Cliente clienteEditado = clienteService.editarCliente(cpf, cliente);
             return ResponseEntity.ok(clienteEditado);
         } catch (IllegalArgumentException e) {

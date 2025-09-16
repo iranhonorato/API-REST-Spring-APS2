@@ -2,6 +2,7 @@ package com.banksystem.aps2.contaCorrente;
 
 
 import com.banksystem.aps2.movimentacao.Movimentacao;
+import com.banksystem.aps2.usuario.UsuarioService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class ContaCorrenteController {
     @Autowired
     private ContaCorrenteService contaCorrenteService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping
     public Collection<ContaCorrente> listarContasController(){ return  contaCorrenteService.listarContas(); }
 
@@ -28,8 +32,11 @@ public class ContaCorrenteController {
 
 
     @PostMapping
-    public ResponseEntity<?> cadastrarContaController(@RequestBody ContaCorrente contaCorrente){
+    public ResponseEntity<?> cadastrarContaController(
+            @RequestBody ContaCorrente contaCorrente,
+            @RequestHeader("Authorization") String token){
         try {
+            usuarioService.validarToken(token);
             ContaCorrente novaConta = contaCorrenteService.cadastrarConta(contaCorrente);
             return ResponseEntity.ok().body(novaConta);
         } catch (IllegalArgumentException e) {
@@ -39,8 +46,12 @@ public class ContaCorrenteController {
 
 
     @PostMapping("/{conta}/saque")
-    public ResponseEntity<?> saqueController(@PathVariable String conta, @RequestBody Float valor){
+    public ResponseEntity<?> saqueController(
+            @PathVariable String conta,
+            @RequestBody Float valor,
+            @RequestHeader("Authorization") String token){
         try {
+            usuarioService.validarToken(token);
             contaCorrenteService.sacar(conta, valor);
             return ResponseEntity.ok().body("Saque realizado com sucesso");
         } catch (IllegalArgumentException e) {
@@ -50,8 +61,12 @@ public class ContaCorrenteController {
 
 
     @PostMapping("/{conta}/deposito")
-    public ResponseEntity<?> depositarController(@PathVariable String conta, @RequestBody Float valor){
+    public ResponseEntity<?> depositarController(
+            @PathVariable String conta,
+            @RequestBody Float valor,
+            @RequestHeader("Authorization") String token){
         try {
+            usuarioService.validarToken(token);
             contaCorrenteService.depositar(conta, valor);
             return ResponseEntity.ok().body("Depósito realizado com sucesso");
         } catch (IllegalArgumentException e) {
