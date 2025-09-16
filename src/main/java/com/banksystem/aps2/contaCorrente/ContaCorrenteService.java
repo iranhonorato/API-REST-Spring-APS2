@@ -13,8 +13,13 @@ import java.util.Map;
 
 @Service
 public class ContaCorrenteService {
-
     private final Map<String, ContaCorrente> contas = new HashMap<>();
+    private final ClienteService clienteConta;
+
+    public ContaCorrenteService(ClienteService cliente) {
+        this.clienteConta = cliente;
+    }
+
 
     public Collection<ContaCorrente> listarContas() {return contas.values();}
 
@@ -26,6 +31,8 @@ public class ContaCorrenteService {
         if (contas.containsKey(conta.getConta())) {
             throw new IllegalArgumentException("Já existe uma conta com esse número corrente");
         }
+
+        clienteConta.salvarCliente(conta.getCliente());
         contas.put(conta.getConta(), conta);
         return conta;
     };

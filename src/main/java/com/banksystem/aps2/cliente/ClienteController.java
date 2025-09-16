@@ -26,15 +26,6 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @PostMapping
-    public ResponseEntity<?> salvarClienteController(@RequestBody Cliente cliente) {
-        try {
-            Cliente novoCliente = clienteService.salvarCliente(cliente);
-            return ResponseEntity.ok(novoCliente);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
 
     @PutMapping("/{cpf}")
     public ResponseEntity<?> editarClienteController(@PathVariable String cpf, @RequestBody Cliente cliente) {
