@@ -31,7 +31,7 @@ public class ClienteController {
         try {
             Cliente novoCliente = clienteService.salvarCliente(cliente);
             return ResponseEntity.ok(novoCliente);
-        } catch (IllegalArgumentException | IllegalAccessException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

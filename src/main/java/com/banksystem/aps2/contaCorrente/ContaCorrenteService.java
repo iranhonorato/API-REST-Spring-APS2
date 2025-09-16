@@ -39,28 +39,20 @@ public class ContaCorrenteService {
     }
 
 
-    public boolean depositar(String conta, float valor) {
+    public void depositar(String conta, Float valor) {
         ContaCorrente contaCorrente = contas.get(conta);
         if (contaCorrente == null) {
             throw new IllegalArgumentException("Conta não encontrada");
-            return false;
         }
         contaCorrente.deposito(valor);
-        return true;
     }
 
-    public boolean sacar(String conta, float valor) {
+    public void sacar(String conta, Float valor) {
         ContaCorrente contaCorrente = contas.get(conta);
         if (contaCorrente == null) {
             throw new IllegalArgumentException("Conta não encontrada");
-            return false;
         }
         contaCorrente.saque(valor);
-        return true;
     }
-
-
-
-
 
 }
