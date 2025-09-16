@@ -2,6 +2,7 @@ package com.banksystem.aps2.contaCorrente;
 
 
 import com.banksystem.aps2.cliente.Cliente;
+import com.banksystem.aps2.cliente.ClienteService;
 import com.banksystem.aps2.movimentacao.Movimentacao;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,6 @@ public class ContaCorrenteService {
         if (contas.containsKey(conta.getConta())) {
             throw new IllegalArgumentException("Já existe uma conta com esse número corrente");
         }
-
         contas.put(conta.getConta(), conta);
         return conta;
     };

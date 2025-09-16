@@ -39,7 +39,7 @@ public class ContaCorrente {
     // Métodos get
     public String getAgencia() {return agencia;}
     public String getConta() {return conta;}
-
+    public Cliente getCliente() {return cliente;}
 
     // Métodos set
     public void setAgencia(String agencia) {this.agencia = agencia;}
