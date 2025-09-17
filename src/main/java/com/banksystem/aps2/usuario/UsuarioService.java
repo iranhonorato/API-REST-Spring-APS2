@@ -25,6 +25,8 @@ public class UsuarioService {
 
     public Usuario cadastrarUsuario(Usuario usuario) {
         String password = usuario.getPassword();
+//        gensalt() gera um salt aleatório. O salt é um valor aleatório acrescentado à senha antes do hash
+//        hashpw() aplica o hash e já armazena a senha de forma segura.
         usuario.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
         usuariosDB.put(usuario.getEmail(), usuario);
         return usuario;
@@ -38,7 +40,12 @@ public class UsuarioService {
     public String login(Usuario usuario) {
         Usuario userDB = usuariosDB.get(usuario.getEmail());
 
+
+//        BCrypt.checkpw(senhaDigitada, senhaArmazenada);
         if (BCrypt.checkpw(usuario.getPassword(), userDB.getPassword())) {
+//            O BCrypt sabe verificar se a senha digitada gera o mesmo hash (considerando o salt).
+//            Se bater, a senha está correta.
+
             String token = UUID.randomUUID().toString();
             tokensDB.put(token, usuario);
             return token;
